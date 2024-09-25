@@ -1,20 +1,29 @@
 #!/bin/bash
 
-# Check if w3m is installed
-if ! command -v w3m &> /dev/null
-then
+# Check if w3m installed
+if ! command -v w3m &> /dev/null; then
     echo "w3m is not installed"
-    exit 1
+
+    read -p 'Install Package? [y/n]: '  install_response
+
+    install_response=$(echo "$install_response" | tr '[:upper:]' '[:lower:]')
+
+    case "$install_response" in
+        y|yes) sudo dnf install -y w3m ;;
+        n|no) exit 1 ;;
+        *) echo 'Invalid input.' && exit 1 ;;
+    esac
 fi
 
-# Check if the user provided a search query
-if [ -z "$1" ]; then
-    echo "Usage: $0 <search query>"
-    exit 1
+# Check for search query
+if [ $# -eq 0 ]; then
+    read -p 'Enter a search term: ' search_term
+else
+    search_term=$*
 fi
 
-# Convert the search query into a URL-friendly format
-query=$(echo "$@" | sed 's/ /+/g')
+# Convert search_term to URL-friendly format
+search_term_formatted=$(echo "$search_term" | sed 's/ /+/g')
 
-# Open Google search in w3m
-w3m "https://www.google.com/search?q=$query"
+# Report google results using w3m
+w3m "https://www.google.com/search?q=$search_term_formatted"
