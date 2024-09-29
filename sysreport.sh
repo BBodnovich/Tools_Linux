@@ -6,11 +6,6 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
-# Format Variables
-greentext="\033[32m"
-bold="\033[1m"
-normal="\033[0m"
-
 # Script variables
 logdate=$(date +"%Y%m%d")
 logfile=/tmp/"$logdate"_report.log
@@ -41,28 +36,27 @@ mem_total=$(free -h | awk '/Mem:/ {print $2}')
 
 # Report Content
 {
-    echo -e $bold"System report for "$greentext"$HOSTNAME"$normal
-    print_info "\n"$bold"System Data"$normal"\t%s"
+    print_info "\nSystem Data\t%s"
     print_info "System type:\t%s" "$MACHTYPE"
     print_info "BIOS Vendor:\t%s" "$bios_vendor"
     print_info "BIOS Version:\t%s" "$bios_version"
     print_info "Bash Version:\t%s" "$BASH_VERSION"
 
-    print_info "\n"$bold"CPU Data"$normal"\t%s"
+    print_info "\nCPU Data\t%s"
     print_info "CPU Vendor:\t%s" "$cpu_vendor"
     print_info "CPU Type:\t%s" "$cpu_type"
     print_info "CPU Cores:\t%s" "$cpu_cores"
     print_info "CPU Threads:\t%s" "$cpu_threads"
 
-    print_info "\n"$bold"Hardware Data"$normal"\t%s"
+    print_info "\nHardware Data\t%s"
     print_info "Mem Free:\t%s" "$mem_free"
     print_info "Mem Total:\t%s" "$mem_total"
     print_info "Disk Free:\t%s" "$disk_free"
 
-    print_info "\n"$bold"Concept Content"$normal"\t%s"
+    print_info "\nConcept Content\t%s"
     print_info "Files in dir:\t%s" "$(find . -maxdepth 1 -type f | wc -l)"
     print_info "Generated on:\t%s\n" "$(date '+%m/%d/%y')"
-    echo -e $greentext"A summary of this info has been saved to $logfile"$normal
+    echo "A summary of this info has been saved to $logfile"
 } | tee "$logfile"
 
 cat <<- E0F >> $logfile
