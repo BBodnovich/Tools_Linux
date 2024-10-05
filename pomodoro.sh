@@ -1,10 +1,10 @@
 #!/bin/bash
-
+#
 # How does a Pomodoro timer work?
 # Set timer for 25 minutes, your Pomodoro block
 # When 25 minute timer is over, set a 5 minute break timer
 # Repeat 4 times, then take a 15-30 minute break
-
+#
 # Task Overview
 # 1.    Work            25 minute timer
 # 2.    Short Break      5 minute timer
@@ -14,7 +14,7 @@
 # 6.    Short Break      5 minute timer
 # 7.    Work            25 minute timer
 # 8.    Long Break      30 minute timer
-
+#
 # TODO
 # 1. Output timer in '00m 00s' format instead of '00000 seconds'
 # 2. Between breaks put some text on the screen notifying 
@@ -110,7 +110,7 @@ start_timer() {
 }
 
 
-# Pomodoro Timer Logic
+# Pomodoro Timer Body
 minutes_to_seconds
 pomodoro_block=1
 pomodoro_round=0
