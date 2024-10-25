@@ -18,11 +18,13 @@ validate_inputs() {
 
 # Validate inputs and set variables
 validate_inputs "$@"
+distance=0
 strand1="$1"
 strand2="$2"
+strand_length=${#strand1}
 
 # Iterate over the strands using a range and slicing
-for (( i=0; i<${#strand1}; i++ )); do
+for (( i=0; i<strand_length; i++ )); do
         if [[ "${strand1:$i:1}" != "${strand2:$i:1}" ]]; then
                 (( distance++ ))
         fi
